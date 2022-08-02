@@ -108,24 +108,8 @@ object Chapter6 {
         if (i + (n - 1) - mod >= 0) rUnit(mod)
         else nonNegativeLessThan(n)
       }
-    //
-    //
-    //      (source: RNG) => {
-    //      val (i, nr) = nonNegativeInt(source)
-    //      val mod = i%n
-    //      if(i + (n-1) - mod >= 0) (i, nr)
-    //      else {
-    //        flatMap()
-    //      }
-    //    }
   }
 
-  def main(args: Array[String]): Unit = {
-    import Exercise6_8._
-    val i = SimpleRNG(System.nanoTime())
-    println(nonNegativeLessThan(256981)(i)._1)
-
-  }
 
   object Chapter6_5 {
     case class State[S, +A](run: S => (A, S)) {
@@ -152,8 +136,6 @@ object Chapter6 {
       def unit[S, A](a: A): State[S, A] = {
         State((s) => (a, s))
       }
-
-
     }
 
   }
@@ -188,8 +170,14 @@ object Chapter6 {
       }
       State(run)
     }
+  }
+  def main(args: Array[String]): Unit = {
+    import Exercise6_11._
+    val initial = Machine(true, coins = 10, candies = 5)
+    val ops = List(Coin, Turn, Coin, Turn)
 
-
+    val res = simulate(ops).run(initial)
+    println(res)
 
   }
 
